@@ -75,7 +75,7 @@ function valueFor(element) {
 
 function buildSurveySummary() {
   const lines = [];
-  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS導入相談" : "シフト管理導入相談"}`);
+  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS先行相談" : "シフト管理先行相談"}`);
 
   document.querySelectorAll("[data-summary]").forEach((element) => {
     if (element.matches('input[type="checkbox"]')) return;
