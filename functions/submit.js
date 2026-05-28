@@ -57,10 +57,10 @@ export async function onRequestPost({ request }) {
   });
 
   if (!response.ok) {
-    return json({ ok: false, message: "送信できませんでした。時間をおいて再度お試しください。" }, 502);
+    return json({ ok: false, message: "送信できませんでした。恐れ入りますが、時間をおいて再度お試しください。" }, 502);
   }
 
-  return json({ ok: true, message: "送信しました。担当者よりご連絡します。" });
+  return json({ ok: true, message: "送信ありがとうございます。担当者よりご連絡いたします。" });
 }
 
 export function onRequest() {

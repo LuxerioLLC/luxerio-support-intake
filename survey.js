@@ -122,7 +122,7 @@ function buildSurveySummary() {
 }
 
 function buildLineFollowupUrl(company) {
-  const message = `フォーム送信済みです。\n会社名・屋号: ${company}\n相談内容: ${surveyLabel.line}`;
+  const message = `フォーム送信済みです。\n会社名・屋号: ${company}\n相談内容: ${surveyLabel.line}\nご確認をお願いいたします。`;
   return `https://line.me/R/oaMessage/%40478eozzg/?${encodeURIComponent(message)}`;
 }
 
@@ -138,7 +138,7 @@ form.addEventListener("submit", async (event) => {
   const requiredGroups = [...document.querySelectorAll("[data-required-group]")];
   const emptyGroup = requiredGroups.find((fieldset) => checkedValues(fieldset.dataset.requiredGroup).length === 0);
   if (emptyGroup) {
-    status.textContent = `${emptyGroup.querySelector("legend").textContent.replace("必須", "").trim()}を1つ以上選択してください。`;
+    status.textContent = `${emptyGroup.querySelector("legend").textContent.replace("必須", "").trim()}を1つ以上お選びください。`;
     status.classList.add("error");
     return;
   }
@@ -157,7 +157,7 @@ form.addEventListener("submit", async (event) => {
   };
 
   submitButton.disabled = true;
-  submitButton.textContent = "送信中";
+  submitButton.textContent = "送信しています";
 
   try {
     const response = await fetch("/submit", {
@@ -173,7 +173,7 @@ form.addEventListener("submit", async (event) => {
       throw new Error(result.message || "送信できませんでした。");
     }
 
-    status.textContent = "送信しました。内容を確認し、通常1営業日以内に担当者よりご連絡します。";
+    status.textContent = "送信ありがとうございます。内容を確認のうえ、通常1営業日以内に担当者よりご連絡いたします。";
     status.classList.add("ok");
     if (lineFollowup && lineFollowupLink) {
       lineFollowupLink.href = buildLineFollowupUrl(company);
@@ -183,7 +183,7 @@ form.addEventListener("submit", async (event) => {
     if (storeCount) storeCount.value = "1";
     renderStores();
   } catch (error) {
-    status.textContent = "送信できませんでした。時間をおいて再度お試しください。";
+    status.textContent = "送信できませんでした。恐れ入りますが、時間をおいて再度お試しください。";
     status.classList.add("error");
   } finally {
     submitButton.disabled = false;
