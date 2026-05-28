@@ -18,6 +18,7 @@ const surveyLabels = {
 };
 const surveyLabel = surveyLabels[surveyType] || surveyLabels.pos;
 const consultationValue = surveyLabel.consultation;
+const isSubsidySurvey = surveyType === "subsidy";
 const storeCount = document.querySelector("#storeCount");
 const stores = document.querySelector("#stores");
 const form = document.querySelector("#intakeForm");
@@ -70,6 +71,7 @@ function checkedValues(name) {
 
 function buildStoreSummary() {
   if (!stores) {
+    if (isSubsidySurvey) return "店舗別情報: 対象外（グループ単位の申請確認）";
     return `ご相談対象の店舗数: ${storeCount?.value || "未入力"}店舗`;
   }
 
@@ -150,7 +152,7 @@ form.addEventListener("submit", async (event) => {
     company,
     contact: document.querySelector("#contact").value.trim(),
     email: document.querySelector("#email").value.trim(),
-    storeCount: storeCount?.value || "未入力",
+    storeCount: isSubsidySurvey ? "対象外（グループ単位）" : storeCount?.value || "未入力",
     consultation: consultationValue,
     storeDetails: buildStoreSummary(),
     notes: buildSurveySummary()
