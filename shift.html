@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>シフト管理導入相談 | Luxerio Support</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-survey-type="shift">
+  <main>
+    <header class="masthead">
+      <div class="mark" aria-hidden="true"><img src="./luxerio-logo-white.png" alt=""></div>
+      <div>
+        <h1>シフト管理導入相談</h1>
+        <p class="lead">現在のシフト作成方法、店舗別の人数、希望提出・勤怠・給与連携の状況を確認します。</p>
+      </div>
+    </header>
+
+    <form id="intakeForm">
+      <section>
+        <h2>基本情報</h2>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="company">会社名・代表店舗名</label>
+            <input id="company" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label class="required" for="contact">担当者名</label>
+            <input id="contact" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label class="required" for="email">会社メールアドレス</label>
+            <input id="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label class="required" for="storeCount">導入予定店舗数</label>
+            <select id="storeCount" required></select>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>シフト運用状況</h2>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="currentShift">現在のシフト作成方法</label>
+            <input id="currentShift" data-summary placeholder="例: Excel、LINE、紙、既存アプリ" required>
+          </div>
+          <div class="field">
+            <label class="required" for="shiftHours">月間のシフト作成時間（時間）</label>
+            <input id="shiftHours" data-summary type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label for="requestMethod">現在の希望提出方法</label>
+            <input id="requestMethod" data-summary placeholder="例: LINE、Googleフォーム、紙">
+          </div>
+          <div class="field">
+            <label for="payroll">給与・勤怠管理ツール</label>
+            <input id="payroll" data-summary placeholder="例: freee人事労務、ジョブカン、Excel">
+          </div>
+          <div class="field">
+            <label for="closingDay">シフト締め日・確定日</label>
+            <input id="closingDay" data-summary placeholder="例: 毎月20日締め、25日確定">
+          </div>
+          <div class="field">
+            <label for="roles">職種・役割</label>
+            <input id="roles" data-summary placeholder="例: 店長、スタッフ、キャスト、送迎">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <fieldset data-summary="shiftNeeds" data-required-group="shiftNeeds">
+          <legend class="required">シフト管理で改善したいこと（複数選択可）</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="希望回収を楽にしたい">希望回収</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="自動作成・調整をしたい">自動作成</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="欠員・変更対応を楽にしたい">変更対応</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="勤怠・給与と連携したい">勤怠・給与連携</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="複数店舗をまとめて管理したい">複数店舗管理</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="LINE通知を使いたい">LINE通知</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <h2>店舗別情報</h2>
+        <p class="hint">選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。</p>
+        <div class="store-list" id="stores"></div>
+      </section>
+
+      <section>
+        <div class="grid">
+          <div class="field">
+            <label for="launchTiming">導入希望時期</label>
+            <select id="launchTiming" data-summary>
+              <option value="">未定</option>
+              <option>できるだけ早く</option>
+              <option>1か月以内</option>
+              <option>3か月以内</option>
+              <option>半年以内</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="subsidy">補助金相談</label>
+            <select id="subsidy" data-summary>
+              <option value="">未選択</option>
+              <option>相談したい</option>
+              <option>興味あり</option>
+              <option>今は不要</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="notes">補足・ご要望</label>
+            <textarea id="notes" placeholder="現在困っていること、希望条件、運用ルールなど"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <p class="status" id="status" aria-live="polite"></p>
+        <button id="submitButton" type="submit">送信する</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="./survey.js"></script>
+</body>
+</html>

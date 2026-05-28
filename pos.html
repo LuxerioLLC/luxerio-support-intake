@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POS導入相談 | Luxerio Support</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-survey-type="pos">
+  <main>
+    <header class="masthead">
+      <div class="mark" aria-hidden="true"><img src="./luxerio-logo-white.png" alt=""></div>
+      <div>
+        <h1>POS導入相談</h1>
+        <p class="lead">現在のPOS・決済手数料・店舗別の運用状況を確認します。内容確認後、通常1営業日以内に担当者よりご連絡します。</p>
+      </div>
+    </header>
+
+    <form id="intakeForm">
+      <section>
+        <h2>基本情報</h2>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="company">会社名・代表店舗名</label>
+            <input id="company" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label class="required" for="contact">担当者名</label>
+            <input id="contact" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label class="required" for="email">会社メールアドレス</label>
+            <input id="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label class="required" for="storeCount">導入予定店舗数</label>
+            <select id="storeCount" required></select>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>POS・決済状況</h2>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="currentPos">現在利用中のPOS</label>
+            <input id="currentPos" data-summary placeholder="例: スマレジ、Airレジ、未導入" required>
+          </div>
+          <div class="field">
+            <label class="required" for="paymentProvider">利用中の決済会社</label>
+            <input id="paymentProvider" data-summary placeholder="例: Airペイ、Square、stera、PayPay" required>
+          </div>
+          <div class="field">
+            <label class="required" for="paymentFee">現在の主な決済手数料（%）</label>
+            <input id="paymentFee" data-summary type="number" inputmode="decimal" min="0" max="20" step="0.01" placeholder="例: 3.24" required>
+          </div>
+          <div class="field">
+            <label for="cashlessSales">月間キャッシュレス決済額（円）</label>
+            <input id="cashlessSales" data-summary type="number" inputmode="numeric" min="0" step="1" placeholder="例: 1500000">
+          </div>
+          <div class="field">
+            <label for="hardware">現在の端末・周辺機器</label>
+            <input id="hardware" data-summary placeholder="例: iPad、レシートプリンタ、キャッシュドロア">
+          </div>
+          <div class="field">
+            <label for="accounting">会計・売上管理ツール</label>
+            <input id="accounting" data-summary placeholder="例: freee、マネーフォワード、Excel">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <fieldset data-summary="posNeeds" data-required-group="posNeeds">
+          <legend class="required">POSで改善したいこと（複数選択可）</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="posNeeds" value="決済手数料を下げたい">決済手数料</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="売上集計を楽にしたい">売上集計</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="複数店舗管理をしたい">複数店舗管理</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="在庫・メニュー管理をしたい">在庫・メニュー</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="会計ソフトと連携したい">会計連携</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="スタッフ権限を分けたい">権限管理</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <h2>店舗別情報</h2>
+        <p class="hint">選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。</p>
+        <div class="store-list" id="stores"></div>
+      </section>
+
+      <section>
+        <div class="grid">
+          <div class="field">
+            <label for="launchTiming">導入希望時期</label>
+            <select id="launchTiming" data-summary>
+              <option value="">未定</option>
+              <option>できるだけ早く</option>
+              <option>1か月以内</option>
+              <option>3か月以内</option>
+              <option>半年以内</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="subsidy">補助金相談</label>
+            <select id="subsidy" data-summary>
+              <option value="">未選択</option>
+              <option>相談したい</option>
+              <option>興味あり</option>
+              <option>今は不要</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="notes">補足・ご要望</label>
+            <textarea id="notes" placeholder="現在困っていること、既存システム、希望条件など"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <p class="status" id="status" aria-live="polite"></p>
+        <button id="submitButton" type="submit">送信する</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="./survey.js"></script>
+</body>
+</html>

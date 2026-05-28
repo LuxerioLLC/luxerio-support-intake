@@ -1,0 +1,149 @@
+const surveyType = document.body.dataset.surveyType;
+const consultationValue = surveyType === "pos" ? "POSについて" : "シフト管理について";
+const storeCount = document.querySelector("#storeCount");
+const stores = document.querySelector("#stores");
+const form = document.querySelector("#intakeForm");
+const status = document.querySelector("#status");
+const submitButton = document.querySelector("#submitButton");
+
+for (let i = 1; i <= 20; i += 1) {
+  const option = document.createElement("option");
+  option.value = String(i);
+  option.textContent = `${i}店舗`;
+  storeCount.append(option);
+}
+
+function renderStores() {
+  const count = Number(storeCount.value || 1);
+  stores.replaceChildren();
+
+  for (let i = 1; i <= count; i += 1) {
+    const card = document.createElement("div");
+    card.className = "store-card";
+    card.innerHTML = `
+      <h3>店舗 ${i}</h3>
+      <div class="store-grid">
+        <div class="field">
+          <label class="required" for="store-name-${i}">店舗名</label>
+          <input id="store-name-${i}" name="storeName" required>
+        </div>
+        <div class="field">
+          <label class="required" for="staff-${i}">スタッフ数</label>
+          <input id="staff-${i}" name="staff" type="number" inputmode="numeric" min="0" step="1" required>
+        </div>
+        <div class="field">
+          <label class="required" for="cast-${i}">キャスト数</label>
+          <input id="cast-${i}" name="cast" type="number" inputmode="numeric" min="0" step="1" required>
+        </div>
+      </div>
+    `;
+    stores.append(card);
+  }
+}
+
+function checkedValues(name) {
+  return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
+}
+
+function buildStoreSummary() {
+  const names = [...document.querySelectorAll('input[name="storeName"]')];
+  const staff = [...document.querySelectorAll('input[name="staff"]')];
+  const cast = [...document.querySelectorAll('input[name="cast"]')];
+
+  return names.map((input, index) => {
+    return `${index + 1}. 店舗名: ${input.value.trim()} / スタッフ数: ${staff[index].value}名 / キャスト数: ${cast[index].value}名`;
+  }).join("\n");
+}
+
+function labelFor(input) {
+  const id = input.id;
+  if (id) {
+    const label = document.querySelector(`label[for="${id}"]`);
+    if (label) return label.textContent.replace("*", "").trim();
+  }
+
+  const fieldset = input.closest("fieldset");
+  if (fieldset) return fieldset.querySelector("legend")?.textContent.replace("*", "").trim();
+
+  return input.name;
+}
+
+function buildSurveySummary() {
+  const lines = [];
+  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS導入相談" : "シフト管理導入相談"}`);
+
+  document.querySelectorAll("[data-summary]").forEach((element) => {
+    if (element.matches('input[type="checkbox"]')) return;
+    if (element.matches("fieldset")) {
+      const values = checkedValues(element.dataset.summary);
+      lines.push(`${element.querySelector("legend").textContent.replace("*", "").trim()}: ${values.join("、") || "未選択"}`);
+      return;
+    }
+
+    lines.push(`${labelFor(element)}: ${element.value.trim() || "未入力"}`);
+  });
+
+  const freeNote = document.querySelector("#notes").value.trim();
+  if (freeNote) lines.push(`補足・ご要望: ${freeNote}`);
+
+  return lines.join("\n");
+}
+
+storeCount.addEventListener("change", renderStores);
+renderStores();
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  status.textContent = "";
+  status.className = "status";
+
+  const requiredGroups = [...document.querySelectorAll("[data-required-group]")];
+  const emptyGroup = requiredGroups.find((fieldset) => checkedValues(fieldset.dataset.requiredGroup).length === 0);
+  if (emptyGroup) {
+    status.textContent = `${emptyGroup.querySelector("legend").textContent.replace("*", "").trim()}を1つ以上選択してください。`;
+    status.classList.add("error");
+    return;
+  }
+
+  if (!form.reportValidity()) return;
+
+  const payload = {
+    company: document.querySelector("#company").value.trim(),
+    contact: document.querySelector("#contact").value.trim(),
+    email: document.querySelector("#email").value.trim(),
+    storeCount: storeCount.value,
+    consultation: consultationValue,
+    storeDetails: buildStoreSummary(),
+    notes: buildSurveySummary()
+  };
+
+  submitButton.disabled = true;
+  submitButton.textContent = "送信中";
+
+  try {
+    const response = await fetch("/submit", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "送信できませんでした。");
+    }
+
+    status.textContent = result.message;
+    status.classList.add("ok");
+    form.reset();
+    storeCount.value = "1";
+    renderStores();
+  } catch (error) {
+    status.textContent = "送信できませんでした。時間をおいて再度お試しください。";
+    status.classList.add("error");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "送信する";
+  }
+});
