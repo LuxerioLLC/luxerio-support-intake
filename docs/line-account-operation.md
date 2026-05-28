@@ -5,6 +5,34 @@
 POS・決済、シフト管理に関する事前ヒアリングと個別案内の窓口。
 「導入受付」ではなく、正式案内前の状況把握と相談受付として運用する。
 
+## プロフィール設定
+
+アカウント名:
+`Luxerio Support`
+
+ステータスメッセージ:
+`POS・シフト案内窓口`
+
+プロフィール背景:
+`line-profile-cover-luxerio.png`
+
+ステータスメッセージ公開時の注意:
+LINE管理画面上で「今後1時間はステータスメッセージを変更できなくなります」と表示されるため、公開前に文言を確認する。
+
+説明文:
+
+```
+Luxerio Supportは、POS・決済、シフト管理に関するご案内窓口です。
+現在の運用状況を確認のうえ、担当者より個別にご案内します。
+```
+
+リンク:
+
+| 表示名 | URL |
+| --- | --- |
+| POS・決済フォーム | `https://luxerio-support-intake-preview.pages.dev/pos.html` |
+| シフト管理フォーム | `https://luxerio-support-intake-preview.pages.dev/shift.html` |
+
 ## 推奨あいさつメッセージ
 
 友だち追加ありがとうございます。
