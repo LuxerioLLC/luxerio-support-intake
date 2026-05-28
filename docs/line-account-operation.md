@@ -48,7 +48,8 @@ HP / Instagram:
 
 初回追加時点では、フォーム回答より先に会社名・担当者名をLINE上で取得する。
 LINEの友だち一覧だけでは企業名が分からず、フォーム未回答のユーザーを追えないため。
-Webhook設定後は、会社名・担当者名のメッセージを受信した時点でフォーム案内を自動返信する。
+無料範囲で自然に運用するため、LINE標準の応答メッセージを利用する。
+Webhookは柔軟だが、LINE DevelopersとCloudflareの環境変数管理が必要になるため、現時点では使わない。
 
 現在のあいさつメッセージに「導入相談」「POS相談」「シフト管理相談」「入力目安1〜2分」「下のメニューから該当フォームを選択してください」が残っている場合は、下記へ差し替える。
 
@@ -59,37 +60,56 @@ Luxerio Supportです。
 お問い合わせありがとうございます。
 内容を確認のうえ、担当者よりご案内いたします。
 
-恐れ入りますが、まず下記2点をこのトークへお送りください。
+恐れ入りますが、まず下記2点を1通のメッセージでお送りください。
 
 ・会社名 / 屋号
 ・ご担当者様名
 
-メッセージを確認後、POS・決済、シフト管理、補助金・助成金のフォームをご案内します。
+ご返信いただくと、POS・決済、シフト管理、補助金・助成金のフォーム案内が届きます。
 
 通常1営業日以内に担当者よりご連絡いたします。
 ```
 
 ## 自動返信設定
 
-Cloudflare Pages FunctionsにLINE Messaging API用のWebhookを追加済み。
-会社名・担当者名のメッセージを受信するとフォーム案内を自動返信し、フォーム送信後のLINEメッセージには受付確認を自動返信する。
+推奨はLINE Official Account Manager標準の「応答メッセージ」。
+キーワード指定は完全一致のため、会社名や担当者名のような自由入力には向かない。
+そのため、初回はキーワードなしの応答メッセージでフォーム案内を返す。
 
-Webhook URL:
-`https://luxerio-support-intake-preview.pages.dev/line-webhook`
+応答メッセージ名:
+`初回フォーム案内`
 
-Cloudflareに設定する環境変数:
+応答タイプ:
+`一律応答`
 
-| 変数名 | 内容 |
-| --- | --- |
-| `LINE_CHANNEL_SECRET` | LINE DevelopersのMessaging APIチャネルシークレット |
-| `LINE_CHANNEL_ACCESS_TOKEN` | LINE DevelopersのMessaging APIチャネルアクセストークン |
+応答方法:
+`応答時間内: 手動チャット＋応答メッセージ`
+`応答時間外: 応答メッセージ`
 
-LINE Developers側の作業:
+本文:
 
-1. Messaging APIチャネルでWebhook URLを設定する。
-2. Webhookの利用をオンにする。
-3. チャネルアクセストークンを発行し、Cloudflare Pagesの環境変数へ登録する。
-4. LINE Official Account Managerの応答設定で、Webhookが有効に動作する状態にする。
+```
+ご連絡ありがとうございます。
+会社名・ご担当者様名を確認いたしました。
+
+お手数ですが、ご相談内容に近いフォームをご入力ください。
+分かる範囲で問題ございません。
+
+POS・決済:
+https://luxerio-support-intake-preview.pages.dev/pos.html
+
+シフト管理:
+https://luxerio-support-intake-preview.pages.dev/shift.html
+
+補助金・助成金:
+https://luxerio-support-intake-preview.pages.dev/subsidy.html
+
+該当するものが複数ある場合は、必要なフォームのみご回答ください。
+```
+
+注意:
+キーワードなし応答は通常メッセージにも反応するため、営業担当が返信中に重複送信しないか運用開始後に確認する。
+重複が気になる場合は、あいさつメッセージで「フォーム」と送ってくださいと案内し、キーワード `フォーム` のみで返信する。
 
 ## リッチメニュー設定
 
