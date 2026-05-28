@@ -1,5 +1,23 @@
 const surveyType = document.body.dataset.surveyType;
-const consultationValue = surveyType === "pos" ? "POSについて" : "シフト管理について";
+const surveyLabels = {
+  pos: {
+    consultation: "POSについて",
+    summary: "POS・決済事前ヒアリング",
+    line: "POS・決済"
+  },
+  shift: {
+    consultation: "シフト管理について",
+    summary: "シフト管理事前ヒアリング",
+    line: "シフト管理"
+  },
+  subsidy: {
+    consultation: "補助金について",
+    summary: "補助金・助成金事前確認",
+    line: "補助金・助成金"
+  }
+};
+const surveyLabel = surveyLabels[surveyType] || surveyLabels.pos;
+const consultationValue = surveyLabel.consultation;
 const storeCount = document.querySelector("#storeCount");
 const stores = document.querySelector("#stores");
 const form = document.querySelector("#intakeForm");
@@ -8,14 +26,17 @@ const submitButton = document.querySelector("#submitButton");
 const lineFollowup = document.querySelector("#lineFollowup");
 const lineFollowupLink = document.querySelector("#lineFollowupLink");
 
-for (let i = 1; i <= 20; i += 1) {
-  const option = document.createElement("option");
-  option.value = String(i);
-  option.textContent = `${i}店舗`;
-  storeCount.append(option);
+if (storeCount) {
+  for (let i = 1; i <= 20; i += 1) {
+    const option = document.createElement("option");
+    option.value = String(i);
+    option.textContent = `${i}店舗`;
+    storeCount.append(option);
+  }
 }
 
 function renderStores() {
+  if (!storeCount || !stores) return;
   const count = Number(storeCount.value || 1);
   stores.replaceChildren();
 
@@ -48,6 +69,10 @@ function checkedValues(name) {
 }
 
 function buildStoreSummary() {
+  if (!stores) {
+    return `ご相談対象の店舗数: ${storeCount?.value || "未入力"}店舗`;
+  }
+
   const names = [...document.querySelectorAll('input[name="storeName"]')];
   const staff = [...document.querySelectorAll('input[name="staff"]')];
   const cast = [...document.querySelectorAll('input[name="cast"]')];
@@ -77,7 +102,7 @@ function valueFor(element) {
 
 function buildSurveySummary() {
   const lines = [];
-  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS・決済事前ヒアリング" : "シフト管理事前ヒアリング"}`);
+  lines.push(`アンケート種別: ${surveyLabel.summary}`);
 
   document.querySelectorAll("[data-summary]").forEach((element) => {
     if (element.matches('input[type="checkbox"]')) return;
@@ -97,12 +122,11 @@ function buildSurveySummary() {
 }
 
 function buildLineFollowupUrl(company) {
-  const typeLabel = surveyType === "pos" ? "POS・決済" : "シフト管理";
-  const message = `フォーム送信済みです。\n会社名・屋号: ${company}\n相談内容: ${typeLabel}`;
+  const message = `フォーム送信済みです。\n会社名・屋号: ${company}\n相談内容: ${surveyLabel.line}`;
   return `https://line.me/R/oaMessage/%40478eozzg/?${encodeURIComponent(message)}`;
 }
 
-storeCount.addEventListener("change", renderStores);
+storeCount?.addEventListener("change", renderStores);
 renderStores();
 
 form.addEventListener("submit", async (event) => {
@@ -126,7 +150,7 @@ form.addEventListener("submit", async (event) => {
     company,
     contact: document.querySelector("#contact").value.trim(),
     email: document.querySelector("#email").value.trim(),
-    storeCount: storeCount.value,
+    storeCount: storeCount?.value || "未入力",
     consultation: consultationValue,
     storeDetails: buildStoreSummary(),
     notes: buildSurveySummary()
@@ -156,7 +180,7 @@ form.addEventListener("submit", async (event) => {
       lineFollowup.hidden = false;
     }
     form.reset();
-    storeCount.value = "1";
+    if (storeCount) storeCount.value = "1";
     renderStores();
   } catch (error) {
     status.textContent = "送信できませんでした。時間をおいて再度お試しください。";

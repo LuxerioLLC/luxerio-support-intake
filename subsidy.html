@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>補助金・助成金 事前確認 | Luxerio Support</title>
+  <meta name="description" content="Luxerioの補助金・助成金に関する事前確認フォームです。検討中の内容、申請状況、対象経費をお聞かせください。">
+  <meta name="robots" content="noindex,nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="補助金・助成金の事前確認 | Luxerio Support">
+  <meta property="og:description" content="検討中の内容、申請状況、対象経費をお聞かせください。">
+  <meta property="og:url" content="https://luxerio-support-intake-preview.pages.dev/subsidy.html">
+  <meta property="og:image" content="https://luxerio-support-intake-preview.pages.dev/line-luxerio-support-icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-survey-type="subsidy">
+  <main>
+    <header class="masthead compact">
+      <a class="brand" href="./index.html" aria-label="Luxerio">
+        <img src="./luxerio-logo-color-cropped.png" alt="Luxerio">
+      </a>
+      <div class="masthead-copy">
+        <p class="eyebrow">Subsidy Consultation</p>
+        <h1>補助金・助成金の事前確認</h1>
+        <p class="lead">対象になり得る制度や進め方を確認するため、現在の状況を分かる範囲でお伺いします。</p>
+      </div>
+    </header>
+
+    <form id="intakeForm">
+      <section>
+        <div class="section-head">
+          <p class="eyebrow">Basic</p>
+          <h2>ご連絡先</h2>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="company">会社名・屋号</label>
+            <input id="company" autocomplete="organization" placeholder="例: 株式会社〇〇 / 〇〇店" required>
+          </div>
+          <div class="field">
+            <label class="required" for="contact">ご担当者様名</label>
+            <input id="contact" autocomplete="name" placeholder="例: 山田 太郎" required>
+          </div>
+          <div class="field">
+            <label class="required" for="email">ご担当者様メールアドレス</label>
+            <input id="email" type="email" autocomplete="email" placeholder="例: name@example.com" required>
+          </div>
+          <div class="field">
+            <label for="phone">お電話番号</label>
+            <input id="phone" data-summary type="tel" autocomplete="tel" placeholder="任意">
+          </div>
+          <div class="field">
+            <label class="required" for="storeCount">ご相談対象の店舗数</label>
+            <select id="storeCount" required></select>
+          </div>
+          <div class="field">
+            <label for="contactPreference">ご希望の連絡方法</label>
+            <select id="contactPreference" data-summary>
+              <option value="">指定なし</option>
+              <option>メール</option>
+              <option>LINE</option>
+              <option>電話</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <p class="eyebrow">Project</p>
+          <h2>検討中の内容</h2>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="projectType">補助金を使いたい内容</label>
+            <select id="projectType" data-summary required>
+              <option value="">選択してください</option>
+              <option>POS・決済まわり</option>
+              <option>シフト管理・勤怠まわり</option>
+              <option>Web・予約・集客まわり</option>
+              <option>店舗設備・端末まわり</option>
+              <option>まだ決まっていない</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="budget">想定している費用感</label>
+            <select id="budget" data-summary>
+              <option value="">未定</option>
+              <option>50万円未満</option>
+              <option>50万円〜100万円</option>
+              <option>100万円〜300万円</option>
+              <option>300万円以上</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="applicationStatus">現在の申請状況</label>
+            <select id="applicationStatus" data-summary>
+              <option value="">未選択</option>
+              <option>まだ何もしていない</option>
+              <option>使える制度を調べている</option>
+              <option>申請準備中</option>
+              <option>すでに申請済み</option>
+              <option>過去に利用したことがある</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="desiredSupport">希望するサポート範囲</label>
+            <select id="desiredSupport" data-summary>
+              <option value="">未選択</option>
+              <option>対象制度を知りたい</option>
+              <option>申請できるか確認したい</option>
+              <option>必要書類や流れを知りたい</option>
+              <option>システム導入とあわせて相談したい</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <fieldset data-summary="subsidyNeeds" data-required-group="subsidyNeeds">
+          <legend class="required">知りたいこと・相談したいこと（複数選択可）</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="対象になり得る制度を知りたい">対象制度を知りたい</label>
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="POS・シフト管理とあわせて相談したい">システム導入と相談したい</label>
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="申請までの流れを知りたい">申請の流れを知りたい</label>
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="必要書類を知りたい">必要書類を知りたい</label>
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="申請期限を確認したい">申請期限を確認したい</label>
+            <label class="check"><input type="checkbox" name="subsidyNeeds" value="まず概要だけ知りたい">概要だけ知りたい</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <div class="grid">
+          <div class="field">
+            <label for="businessType">業種・営業形態</label>
+            <input id="businessType" data-summary placeholder="任意 / 飲食店、美容、ナイト店舗、小売など">
+          </div>
+          <div class="field">
+            <label for="decisionTiming">確認したい時期</label>
+            <select id="decisionTiming" data-summary>
+              <option value="">指定なし</option>
+              <option>できるだけ早く概要を知りたい</option>
+              <option>1か月以内に方向性を決めたい</option>
+              <option>急ぎではないが情報がほしい</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="notes">補足・ご要望</label>
+            <textarea id="notes" placeholder="例: 検討中のシステム、購入予定の機器、過去に使った補助金、相談前に共有したいこと"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <p>送信内容はご案内・個別相談・今後のサービス改善のために利用します。補助金・助成金は制度内容や募集状況により対象可否が変わるため、採択や支給を保証するものではありません。</p>
+        <div class="actions">
+          <p class="status" id="status" aria-live="polite"></p>
+          <button id="submitButton" type="submit">この内容で送信する</button>
+        </div>
+        <div class="line-followup" id="lineFollowup" hidden>
+          <p>LINE上での確認をスムーズにするため、送信後に会社名・屋号をトークへ送ってください。</p>
+          <a id="lineFollowupLink" href="https://line.me/R/oaMessage/%40478eozzg/" target="_blank" rel="noopener">LINEで会社名を送る</a>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script src="./survey.js"></script>
+</body>
+</html>

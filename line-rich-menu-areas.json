@@ -40,8 +40,8 @@
         "height": 843
       },
       "action": {
-        "type": "text",
-        "text": "補助金・助成金について相談したい"
+        "type": "uri",
+        "uri": "https://luxerio-support-intake-preview.pages.dev/subsidy.html"
       }
     }
   ]
