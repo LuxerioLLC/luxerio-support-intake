@@ -25,15 +25,15 @@ function renderStores() {
       <div class="store-grid">
         <div class="field">
           <label class="required" for="store-name-${i}">店舗名</label>
-          <input id="store-name-${i}" name="storeName" required>
+          <input id="store-name-${i}" name="storeName" placeholder="例: 銀座店" required>
         </div>
         <div class="field">
           <label class="required" for="staff-${i}">スタッフ数</label>
-          <input id="staff-${i}" name="staff" type="number" inputmode="numeric" min="0" step="1" required>
+          <input id="staff-${i}" name="staff" type="number" inputmode="numeric" min="0" step="1" placeholder="0" required>
         </div>
         <div class="field">
           <label class="required" for="cast-${i}">キャスト数</label>
-          <input id="cast-${i}" name="cast" type="number" inputmode="numeric" min="0" step="1" required>
+          <input id="cast-${i}" name="cast" type="number" inputmode="numeric" min="0" step="1" placeholder="0" required>
         </div>
       </div>
     `;
@@ -59,13 +59,18 @@ function labelFor(input) {
   const id = input.id;
   if (id) {
     const label = document.querySelector(`label[for="${id}"]`);
-    if (label) return label.textContent.replace("*", "").trim();
+    if (label) return label.textContent.replace("必須", "").trim();
   }
 
   const fieldset = input.closest("fieldset");
-  if (fieldset) return fieldset.querySelector("legend")?.textContent.replace("*", "").trim();
+  if (fieldset) return fieldset.querySelector("legend")?.textContent.replace("必須", "").trim();
 
   return input.name;
+}
+
+function valueFor(element) {
+  const value = element.value.trim();
+  return value || "未入力";
 }
 
 function buildSurveySummary() {
@@ -76,11 +81,11 @@ function buildSurveySummary() {
     if (element.matches('input[type="checkbox"]')) return;
     if (element.matches("fieldset")) {
       const values = checkedValues(element.dataset.summary);
-      lines.push(`${element.querySelector("legend").textContent.replace("*", "").trim()}: ${values.join("、") || "未選択"}`);
+      lines.push(`${element.querySelector("legend").textContent.replace("必須", "").trim()}: ${values.join("、") || "未選択"}`);
       return;
     }
 
-    lines.push(`${labelFor(element)}: ${element.value.trim() || "未入力"}`);
+    lines.push(`${labelFor(element)}: ${valueFor(element)}`);
   });
 
   const freeNote = document.querySelector("#notes").value.trim();
@@ -100,7 +105,7 @@ form.addEventListener("submit", async (event) => {
   const requiredGroups = [...document.querySelectorAll("[data-required-group]")];
   const emptyGroup = requiredGroups.find((fieldset) => checkedValues(fieldset.dataset.requiredGroup).length === 0);
   if (emptyGroup) {
-    status.textContent = `${emptyGroup.querySelector("legend").textContent.replace("*", "").trim()}を1つ以上選択してください。`;
+    status.textContent = `${emptyGroup.querySelector("legend").textContent.replace("必須", "").trim()}を1つ以上選択してください。`;
     status.classList.add("error");
     return;
   }
@@ -134,7 +139,7 @@ form.addEventListener("submit", async (event) => {
       throw new Error(result.message || "送信できませんでした。");
     }
 
-    status.textContent = result.message;
+    status.textContent = "送信しました。ご入力ありがとうございます。担当者よりご連絡します。";
     status.classList.add("ok");
     form.reset();
     storeCount.value = "1";
@@ -144,6 +149,6 @@ form.addEventListener("submit", async (event) => {
     status.classList.add("error");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "送信する";
+    submitButton.textContent = "この内容で相談する";
   }
 });

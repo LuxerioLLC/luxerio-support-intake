@@ -8,89 +8,44 @@
 </head>
 <body data-survey-type="pos">
   <main>
-    <header class="masthead">
-      <div class="mark" aria-hidden="true"><img src="./luxerio-logo-white.png" alt=""></div>
-      <div>
-        <h1>POS導入相談</h1>
-        <p class="lead">現在のPOS・決済手数料・店舗別の運用状況を確認します。内容確認後、通常1営業日以内に担当者よりご連絡します。</p>
+    <header class="masthead compact">
+      <a class="brand" href="./index.html" aria-label="Luxerio">
+        <img src="./luxerio-logo-color-cropped.png" alt="Luxerio">
+      </a>
+      <div class="masthead-copy">
+        <p class="eyebrow">POS Consultation</p>
+        <h1>POS導入・決済手数料の相談</h1>
+        <p class="lead">導入可否や概算提案を判断するため、現在のPOS・決済状況と店舗別人数をお伺いします。</p>
       </div>
     </header>
 
     <form id="intakeForm">
       <section>
-        <h2>基本情報</h2>
+        <div class="section-head">
+          <p class="eyebrow">Basic</p>
+          <h2>ご連絡先</h2>
+        </div>
         <div class="grid">
           <div class="field">
-            <label class="required" for="company">会社名・代表店舗名</label>
-            <input id="company" autocomplete="organization" required>
+            <label class="required" for="company">会社名・屋号</label>
+            <input id="company" autocomplete="organization" placeholder="例: 株式会社〇〇 / 〇〇店" required>
           </div>
           <div class="field">
-            <label class="required" for="contact">担当者名</label>
-            <input id="contact" autocomplete="name" required>
+            <label class="required" for="contact">ご担当者様名</label>
+            <input id="contact" autocomplete="name" placeholder="例: 山田 太郎" required>
           </div>
           <div class="field">
-            <label class="required" for="email">会社メールアドレス</label>
-            <input id="email" type="email" autocomplete="email" required>
+            <label class="required" for="email">ご担当者様メールアドレス</label>
+            <input id="email" type="email" autocomplete="email" placeholder="例: name@example.com" required>
+          </div>
+          <div class="field">
+            <label for="phone">お電話番号</label>
+            <input id="phone" data-summary type="tel" autocomplete="tel" placeholder="任意">
           </div>
           <div class="field">
             <label class="required" for="storeCount">導入予定店舗数</label>
             <select id="storeCount" required></select>
           </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>POS・決済状況</h2>
-        <div class="grid">
-          <div class="field">
-            <label class="required" for="currentPos">現在利用中のPOS</label>
-            <input id="currentPos" data-summary placeholder="例: スマレジ、Airレジ、未導入" required>
-          </div>
-          <div class="field">
-            <label class="required" for="paymentProvider">利用中の決済会社</label>
-            <input id="paymentProvider" data-summary placeholder="例: Airペイ、Square、stera、PayPay" required>
-          </div>
-          <div class="field">
-            <label class="required" for="paymentFee">現在の主な決済手数料（%）</label>
-            <input id="paymentFee" data-summary type="number" inputmode="decimal" min="0" max="20" step="0.01" placeholder="例: 3.24" required>
-          </div>
-          <div class="field">
-            <label for="cashlessSales">月間キャッシュレス決済額（円）</label>
-            <input id="cashlessSales" data-summary type="number" inputmode="numeric" min="0" step="1" placeholder="例: 1500000">
-          </div>
-          <div class="field">
-            <label for="hardware">現在の端末・周辺機器</label>
-            <input id="hardware" data-summary placeholder="例: iPad、レシートプリンタ、キャッシュドロア">
-          </div>
-          <div class="field">
-            <label for="accounting">会計・売上管理ツール</label>
-            <input id="accounting" data-summary placeholder="例: freee、マネーフォワード、Excel">
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <fieldset data-summary="posNeeds" data-required-group="posNeeds">
-          <legend class="required">POSで改善したいこと（複数選択可）</legend>
-          <div class="checks">
-            <label class="check"><input type="checkbox" name="posNeeds" value="決済手数料を下げたい">決済手数料</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="売上集計を楽にしたい">売上集計</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="複数店舗管理をしたい">複数店舗管理</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="在庫・メニュー管理をしたい">在庫・メニュー</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="会計ソフトと連携したい">会計連携</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="スタッフ権限を分けたい">権限管理</label>
-          </div>
-        </fieldset>
-      </section>
-
-      <section>
-        <h2>店舗別情報</h2>
-        <p class="hint">選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。</p>
-        <div class="store-list" id="stores"></div>
-      </section>
-
-      <section>
-        <div class="grid">
           <div class="field">
             <label for="launchTiming">導入希望時期</label>
             <select id="launchTiming" data-summary>
@@ -99,27 +54,104 @@
               <option>1か月以内</option>
               <option>3か月以内</option>
               <option>半年以内</option>
+              <option>既存契約の更新時期に合わせたい</option>
             </select>
-          </div>
-          <div class="field">
-            <label for="subsidy">補助金相談</label>
-            <select id="subsidy" data-summary>
-              <option value="">未選択</option>
-              <option>相談したい</option>
-              <option>興味あり</option>
-              <option>今は不要</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="notes">補足・ご要望</label>
-            <textarea id="notes" placeholder="現在困っていること、既存システム、希望条件など"></textarea>
           </div>
         </div>
       </section>
 
-      <div class="actions">
-        <p class="status" id="status" aria-live="polite"></p>
-        <button id="submitButton" type="submit">送信する</button>
+      <section>
+        <div class="section-head">
+          <p class="eyebrow">Current System</p>
+          <h2>現在のPOS・決済状況</h2>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label class="required" for="currentPos">現在利用中のPOS</label>
+            <input id="currentPos" data-summary placeholder="例: スマレジ / Airレジ / 未導入" required>
+          </div>
+          <div class="field">
+            <label class="required" for="paymentProvider">現在利用中の決済会社</label>
+            <input id="paymentProvider" data-summary placeholder="例: Airペイ / Square / stera / PayPay" required>
+          </div>
+          <div class="field">
+            <label class="required" for="paymentFee">主な決済手数料</label>
+            <div class="input-affix">
+              <input id="paymentFee" data-summary type="number" inputmode="decimal" min="0" max="20" step="0.01" placeholder="例: 3.24" required>
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cashlessSales">月間キャッシュレス決済額</label>
+            <input id="cashlessSales" data-summary type="number" inputmode="numeric" min="0" step="1" placeholder="任意 / 例: 1500000">
+          </div>
+          <div class="field">
+            <label for="hardware">現在の端末・周辺機器</label>
+            <input id="hardware" data-summary placeholder="任意 / iPad、プリンタ、キャッシュドロアなど">
+          </div>
+          <div class="field">
+            <label for="accounting">会計・売上管理ツール</label>
+            <input id="accounting" data-summary placeholder="任意 / freee、マネーフォワード、Excelなど">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <fieldset data-summary="posNeeds" data-required-group="posNeeds">
+          <legend class="required">今回相談したいこと（複数選択可）</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="posNeeds" value="決済手数料を見直したい">決済手数料を見直したい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="POSを新規導入したい">POSを新規導入したい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="既存POSから切り替えたい">既存POSから切り替えたい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="売上集計を楽にしたい">売上集計を楽にしたい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="複数店舗をまとめて管理したい">複数店舗を管理したい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="補助金・助成金について相談したい">補助金について相談したい</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <p class="eyebrow">Stores</p>
+          <h2>店舗別情報</h2>
+          <p>選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。該当しない人数は0で構いません。</p>
+        </div>
+        <div class="store-list" id="stores"></div>
+      </section>
+
+      <section>
+        <div class="grid">
+          <div class="field">
+            <label for="subsidy">補助金・助成金の検討状況</label>
+            <select id="subsidy" data-summary>
+              <option value="">未定</option>
+              <option>具体的に相談したい</option>
+              <option>使える制度があれば知りたい</option>
+              <option>今回は不要</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="contactPreference">ご希望の連絡方法</label>
+            <select id="contactPreference" data-summary>
+              <option value="">指定なし</option>
+              <option>メール</option>
+              <option>LINE</option>
+              <option>電話</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="notes">補足・ご要望</label>
+            <textarea id="notes" placeholder="例: 既存契約の更新時期、重視したい条件、相談前に伝えておきたいこと"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <p>送信内容は導入相談・ご連絡・概算提案のために利用します。</p>
+        <div class="actions">
+          <p class="status" id="status" aria-live="polite"></p>
+          <button id="submitButton" type="submit">この内容で相談する</button>
+        </div>
       </div>
     </form>
   </main>
