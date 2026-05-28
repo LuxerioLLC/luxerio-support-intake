@@ -1,0 +1,48 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 843
+  },
+  "chatBarText": "メニューを開く",
+  "areas": [
+    {
+      "label": "POS・決済",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://luxerio-support-intake-preview.pages.dev/pos.html"
+      }
+    },
+    {
+      "label": "シフト管理",
+      "bounds": {
+        "x": 833,
+        "y": 0,
+        "width": 834,
+        "height": 843
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://luxerio-support-intake-preview.pages.dev/shift.html"
+      }
+    },
+    {
+      "label": "補助金・相談",
+      "bounds": {
+        "x": 1667,
+        "y": 0,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "text",
+        "text": "補助金・助成金について相談したい"
+      }
+    }
+  ]
+}
