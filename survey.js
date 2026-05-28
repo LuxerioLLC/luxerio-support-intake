@@ -5,6 +5,8 @@ const stores = document.querySelector("#stores");
 const form = document.querySelector("#intakeForm");
 const status = document.querySelector("#status");
 const submitButton = document.querySelector("#submitButton");
+const lineFollowup = document.querySelector("#lineFollowup");
+const lineFollowupLink = document.querySelector("#lineFollowupLink");
 
 for (let i = 1; i <= 20; i += 1) {
   const option = document.createElement("option");
@@ -75,7 +77,7 @@ function valueFor(element) {
 
 function buildSurveySummary() {
   const lines = [];
-  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS先行相談" : "シフト管理先行相談"}`);
+  lines.push(`アンケート種別: ${surveyType === "pos" ? "POS・決済事前ヒアリング" : "シフト管理事前ヒアリング"}`);
 
   document.querySelectorAll("[data-summary]").forEach((element) => {
     if (element.matches('input[type="checkbox"]')) return;
@@ -94,6 +96,12 @@ function buildSurveySummary() {
   return lines.join("\n");
 }
 
+function buildLineFollowupUrl(company) {
+  const typeLabel = surveyType === "pos" ? "POS・決済" : "シフト管理";
+  const message = `フォーム送信済みです。\n会社名・屋号: ${company}\n相談内容: ${typeLabel}`;
+  return `https://line.me/R/oaMessage/%40478eozzg/?${encodeURIComponent(message)}`;
+}
+
 storeCount.addEventListener("change", renderStores);
 renderStores();
 
@@ -101,6 +109,7 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   status.textContent = "";
   status.className = "status";
+  if (lineFollowup) lineFollowup.hidden = true;
 
   const requiredGroups = [...document.querySelectorAll("[data-required-group]")];
   const emptyGroup = requiredGroups.find((fieldset) => checkedValues(fieldset.dataset.requiredGroup).length === 0);
@@ -112,8 +121,9 @@ form.addEventListener("submit", async (event) => {
 
   if (!form.reportValidity()) return;
 
+  const company = document.querySelector("#company").value.trim();
   const payload = {
-    company: document.querySelector("#company").value.trim(),
+    company,
     contact: document.querySelector("#contact").value.trim(),
     email: document.querySelector("#email").value.trim(),
     storeCount: storeCount.value,
@@ -139,8 +149,12 @@ form.addEventListener("submit", async (event) => {
       throw new Error(result.message || "送信できませんでした。");
     }
 
-    status.textContent = "送信しました。ご入力ありがとうございます。担当者よりご連絡します。";
+    status.textContent = "送信しました。内容を確認し、通常1営業日以内に担当者よりご連絡します。";
     status.classList.add("ok");
+    if (lineFollowup && lineFollowupLink) {
+      lineFollowupLink.href = buildLineFollowupUrl(company);
+      lineFollowup.hidden = false;
+    }
     form.reset();
     storeCount.value = "1";
     renderStores();
@@ -149,6 +163,6 @@ form.addEventListener("submit", async (event) => {
     status.classList.add("error");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "この内容で相談する";
+    submitButton.textContent = "この内容で送信する";
   }
 });

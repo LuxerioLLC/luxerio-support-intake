@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POS・決済 先行相談 | Luxerio Support</title>
+  <title>POS・決済 事前ヒアリング | Luxerio Support</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body data-survey-type="pos">
@@ -14,8 +14,8 @@
       </a>
       <div class="masthead-copy">
         <p class="eyebrow">POS Consultation</p>
-        <h1>POS・決済手数料の先行相談</h1>
-        <p class="lead">開発中サービスのご案内・個別相談に向けて、現在のPOS・決済状況と店舗別人数をお伺いします。</p>
+        <h1>POS・決済の事前ヒアリング</h1>
+        <p class="lead">正式なご案内に向けて、現在のPOS・決済状況と店舗別人数をお伺いします。</p>
       </div>
     </header>
 
@@ -43,11 +43,11 @@
             <input id="phone" data-summary type="tel" autocomplete="tel" placeholder="任意">
           </div>
           <div class="field">
-            <label class="required" for="storeCount">導入予定店舗数</label>
+            <label class="required" for="storeCount">ご相談対象の店舗数</label>
             <select id="storeCount" required></select>
           </div>
           <div class="field">
-            <label for="launchTiming">ご検討状況</label>
+            <label for="launchTiming">現在のご状況</label>
             <select id="launchTiming" data-summary>
               <option value="">未選択</option>
               <option>情報収集をしている</option>
@@ -75,14 +75,11 @@
             <input id="paymentProvider" data-summary placeholder="例: Airペイ / Square / stera / PayPay" required>
           </div>
           <div class="field">
-            <label class="required" for="paymentFee">主な決済手数料</label>
-            <div class="input-affix">
-              <input id="paymentFee" data-summary type="number" inputmode="decimal" min="0" max="20" step="0.01" placeholder="例: 3.24" required>
-              <span>%</span>
-            </div>
+            <label for="paymentFee">主な決済手数料（分かる範囲）</label>
+            <input id="paymentFee" data-summary inputmode="decimal" placeholder="例: 3.24% / 不明">
           </div>
           <div class="field">
-            <label for="cashlessSales">月間キャッシュレス決済額</label>
+            <label for="cashlessSales">月間キャッシュレス決済額（概算）</label>
             <input id="cashlessSales" data-summary type="number" inputmode="numeric" min="0" step="1" placeholder="任意 / 例: 1500000">
           </div>
           <div class="field">
@@ -98,14 +95,14 @@
 
       <section>
         <fieldset data-summary="posNeeds" data-required-group="posNeeds">
-          <legend class="required">今回相談したいこと（複数選択可）</legend>
+          <legend class="required">知りたいこと・相談したいこと（複数選択可）</legend>
           <div class="checks">
             <label class="check"><input type="checkbox" name="posNeeds" value="決済手数料を見直したい">決済手数料を見直したい</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="POSを新規導入したい">POSを新規導入したい</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="既存POSから切り替えたい">既存POSから切り替えたい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="現在のPOS運用を見直したい">POS運用を見直したい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="費用感を知りたい">費用感を知りたい</label>
             <label class="check"><input type="checkbox" name="posNeeds" value="売上集計を楽にしたい">売上集計を楽にしたい</label>
             <label class="check"><input type="checkbox" name="posNeeds" value="複数店舗をまとめて管理したい">複数店舗を管理したい</label>
-            <label class="check"><input type="checkbox" name="posNeeds" value="補助金・助成金について相談したい">補助金について相談したい</label>
+            <label class="check"><input type="checkbox" name="posNeeds" value="正式案内を受け取りたい">正式案内を受け取りたい</label>
           </div>
         </fieldset>
       </section>
@@ -114,7 +111,7 @@
         <div class="section-head">
           <p class="eyebrow">Stores</p>
           <h2>店舗別情報</h2>
-          <p>選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。該当しない人数は0で構いません。</p>
+          <p>選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。該当しない項目は0で構いません。</p>
         </div>
         <div class="store-list" id="stores"></div>
       </section>
@@ -122,11 +119,12 @@
       <section>
         <div class="grid">
           <div class="field">
-            <label for="subsidy">補助金・助成金の検討状況</label>
+            <label for="subsidy">補助金・助成金について</label>
             <select id="subsidy" data-summary>
-              <option value="">未定</option>
-              <option>具体的に相談したい</option>
+              <option value="">未選択</option>
               <option>使える制度があれば知りたい</option>
+              <option>具体的に相談したい</option>
+              <option>すでに確認中</option>
               <option>今回は不要</option>
             </select>
           </div>
@@ -141,7 +139,7 @@
           </div>
           <div class="field full">
             <label for="notes">補足・ご要望</label>
-            <textarea id="notes" placeholder="例: 既存契約の更新時期、重視したい条件、相談前に伝えておきたいこと"></textarea>
+            <textarea id="notes" placeholder="例: 既存契約の更新時期、重視したい条件、事前に共有したいこと"></textarea>
           </div>
         </div>
       </section>
@@ -150,7 +148,11 @@
         <p>送信内容はご案内・個別相談・今後のサービス改善のために利用します。</p>
         <div class="actions">
           <p class="status" id="status" aria-live="polite"></p>
-          <button id="submitButton" type="submit">この内容で相談する</button>
+          <button id="submitButton" type="submit">この内容で送信する</button>
+        </div>
+        <div class="line-followup" id="lineFollowup" hidden>
+          <p>LINE上での確認をスムーズにするため、送信後に会社名・屋号をトークへ送ってください。</p>
+          <a id="lineFollowupLink" href="https://line.me/R/oaMessage/%40478eozzg/" target="_blank" rel="noopener">LINEで会社名を送る</a>
         </div>
       </div>
     </form>

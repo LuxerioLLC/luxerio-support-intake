@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>シフト管理アプリ 先行相談 | Luxerio Support</title>
+  <title>シフト管理 事前ヒアリング | Luxerio Support</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body data-survey-type="shift">
@@ -14,8 +14,8 @@
       </a>
       <div class="masthead-copy">
         <p class="eyebrow">Shift Consultation</p>
-        <h1>シフト管理アプリの先行相談</h1>
-        <p class="lead">開発中サービスのご案内・個別相談に向けて、現在の作成方法・課題・店舗別人数をお伺いします。</p>
+        <h1>シフト管理の事前ヒアリング</h1>
+        <p class="lead">正式なご案内に向けて、現在の作成方法・課題・店舗別人数をお伺いします。</p>
       </div>
     </header>
 
@@ -43,11 +43,11 @@
             <input id="phone" data-summary type="tel" autocomplete="tel" placeholder="任意">
           </div>
           <div class="field">
-            <label class="required" for="storeCount">導入予定店舗数</label>
+            <label class="required" for="storeCount">ご相談対象の店舗数</label>
             <select id="storeCount" required></select>
           </div>
           <div class="field">
-            <label for="launchTiming">ご検討状況</label>
+            <label for="launchTiming">現在のご状況</label>
             <select id="launchTiming" data-summary>
               <option value="">未選択</option>
               <option>情報収集をしている</option>
@@ -98,14 +98,14 @@
 
       <section>
         <fieldset data-summary="shiftNeeds" data-required-group="shiftNeeds">
-          <legend class="required">今回相談したいこと（複数選択可）</legend>
+          <legend class="required">知りたいこと・相談したいこと（複数選択可）</legend>
           <div class="checks">
             <label class="check"><input type="checkbox" name="shiftNeeds" value="シフト希望の回収を楽にしたい">希望回収を楽にしたい</label>
             <label class="check"><input type="checkbox" name="shiftNeeds" value="シフト作成・調整を効率化したい">作成・調整を効率化したい</label>
             <label class="check"><input type="checkbox" name="shiftNeeds" value="欠勤・変更対応を楽にしたい">変更対応を楽にしたい</label>
             <label class="check"><input type="checkbox" name="shiftNeeds" value="複数店舗をまとめて管理したい">複数店舗を管理したい</label>
             <label class="check"><input type="checkbox" name="shiftNeeds" value="勤怠・給与と連携したい">勤怠・給与と連携したい</label>
-            <label class="check"><input type="checkbox" name="shiftNeeds" value="補助金・助成金について相談したい">補助金について相談したい</label>
+            <label class="check"><input type="checkbox" name="shiftNeeds" value="正式案内を受け取りたい">正式案内を受け取りたい</label>
           </div>
         </fieldset>
       </section>
@@ -114,7 +114,7 @@
         <div class="section-head">
           <p class="eyebrow">Stores</p>
           <h2>店舗別情報</h2>
-          <p>選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。該当しない人数は0で構いません。</p>
+          <p>選択した店舗数分、店舗名・スタッフ数・キャスト数を1店舗単位で入力してください。該当しない項目は0で構いません。</p>
         </div>
         <div class="store-list" id="stores"></div>
       </section>
@@ -122,11 +122,12 @@
       <section>
         <div class="grid">
           <div class="field">
-            <label for="subsidy">補助金・助成金の検討状況</label>
+            <label for="subsidy">補助金・助成金について</label>
             <select id="subsidy" data-summary>
-              <option value="">未定</option>
-              <option>具体的に相談したい</option>
+              <option value="">未選択</option>
               <option>使える制度があれば知りたい</option>
+              <option>具体的に相談したい</option>
+              <option>すでに確認中</option>
               <option>今回は不要</option>
             </select>
           </div>
@@ -150,7 +151,11 @@
         <p>送信内容はご案内・個別相談・今後のサービス改善のために利用します。</p>
         <div class="actions">
           <p class="status" id="status" aria-live="polite"></p>
-          <button id="submitButton" type="submit">この内容で相談する</button>
+          <button id="submitButton" type="submit">この内容で送信する</button>
+        </div>
+        <div class="line-followup" id="lineFollowup" hidden>
+          <p>LINE上での確認をスムーズにするため、送信後に会社名・屋号をトークへ送ってください。</p>
+          <a id="lineFollowupLink" href="https://line.me/R/oaMessage/%40478eozzg/" target="_blank" rel="noopener">LINEで会社名を送る</a>
         </div>
       </div>
     </form>
