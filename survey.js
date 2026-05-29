@@ -152,7 +152,9 @@ form.addEventListener("submit", async (event) => {
     company,
     contact: document.querySelector("#contact").value.trim(),
     email: document.querySelector("#email").value.trim(),
-    storeCount: isSubsidySurvey ? "対象外（グループ単位）" : storeCount?.value || "未入力",
+    // The existing Google Form still requires this legacy field.
+    // Subsidy intake is group-based, so the visible form omits store count and records the context in storeDetails/notes.
+    storeCount: isSubsidySurvey ? "1" : storeCount?.value || "未入力",
     consultation: consultationValue,
     storeDetails: buildStoreSummary(),
     notes: buildSurveySummary()
